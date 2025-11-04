@@ -1,6 +1,7 @@
 import './Home.scss'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import Trending from './components/Trending'
 import { Plus  } from '@phosphor-icons/react'
 
 function Home() {
@@ -52,7 +53,7 @@ function Home() {
           </div>
 
           <div className="content-right">
-
+            <Trending />
           </div>
 
         </div>

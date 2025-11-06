@@ -1,11 +1,13 @@
 import './Trending.scss'
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import spotifyStore from '../stores/spotifyStore';
 import fallbackImage from '../assets/pas.jpeg';
 
 const Trending = observer(() => {
+    const [openPopup, setOpenPopup] = useState(false)
+
   useEffect(() => {
     spotifyStore.fetchTrendingData();
   }, []);
@@ -81,6 +83,26 @@ const Trending = observer(() => {
 
   return (
     <div className="trending">
+        {
+            openPopup && 
+            <div className='popup-container'>
+                <div className="popup-container-up">
+                    <h3>Create a playlist</h3>
+                    <p>Log in to create and share playlists</p>
+                </div>
+
+                <div className="popup-container-down">
+                    <li>
+                        <ul><a href="#" onClick={(event) => {
+                        event.preventDefault(); setOpenPopup(false)}}>Not now</a>
+                        </ul>
+                        <ul>
+                            <a href="#" onClick={(event) => event.preventDefault()}>Log in</a>
+                        </ul>
+                    </li>
+                      </div>
+                    </div>
+        }
       <section className="trending-section">
         <div className="section-header">
           <h2>Trending Songs</h2>

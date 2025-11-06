@@ -3,8 +3,9 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { Plus  } from '@phosphor-icons/react'
 import { Outlet } from 'react-router-dom'
-
+import { useState } from 'react'
 function Home() {
+  const [openPopup, setOpenPopup] = useState(false)
   return (
     <>
       <div className="wrapper">
@@ -24,7 +25,10 @@ function Home() {
                   <p>It's easy, we'll help you</p>
                 </div>
                 <div className="child-bottom">
-                  <a href="">Create playlist</a>
+                  <a href="#" onClick={(event) => {
+                    event.preventDefault()
+                    setOpenPopup(true)
+                  }}>Create playlist</a>
                 </div>
               </div>
               <div className='main-child'>
@@ -34,7 +38,7 @@ function Home() {
                 </div>
                 
                 <div className="child-bottom">
-                  <a href="">Browse podcasts</a>
+                  <a href="#" onClick={(event) => event.preventDefault()}>Browse podcasts</a>
                 </div>
               </div>
                 
@@ -56,7 +60,23 @@ function Home() {
             <Outlet />
           </div>
 
-        </div>
+        {openPopup && (
+          <div className="playlist-popup">
+            <div className="playlist-popup__header">
+              <h3>Create a playlist</h3>
+              <p>Log in to create and share playlists.</p>
+            </div>
+            <div className="playlist-popup__actions">
+              <a href="#" onClick={(event) => {
+                event.preventDefault()
+                setOpenPopup(false)
+              }}>Not now</a>
+              <a href="#" onClick={(event) => event.preventDefault()}>Log in</a>
+            </div>
+          </div>
+        )}
+
+      </div>
         <Footer />
       </div>
     </>

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import spotifyStore from '../stores/spotifyStore';
+import fallbackImage from '../assets/pas.jpeg';
 
 const Trending = observer(() => {
   useEffect(() => {
@@ -27,17 +28,17 @@ const Trending = observer(() => {
 
   const renderTracks = () => {
     return spotifyStore.trendingSongs.slice(0, 20).map(track => {
-      const artwork = track.album?.images?.[0]?.url || '/placeholder.png';
-      const artists = track.artists?.map(artist => artist.name).join(', ');
-      return (
+    const artwork = track.album?.images?.[0]?.url || fallbackImage;
+    const artists = track.artists?.map(artist => artist.name).join(', ');
+    return (
         <div key={track.id} className="media-card">
-          <div className="media-thumb">
-            <img src={artwork} alt={track.name} />
-          </div>
-          <div className="media-meta">
-            <h3>{track.name}</h3>
-            <p>{artists}</p>
-          </div>
+            <div className="media-thumb">
+                <img src={artwork} alt={track.name} />
+            </div>
+            <div className="media-meta">
+                <h3>{track.name}</h3>
+                <p>{artists}</p>
+            </div>
         </div>
       );
     });
@@ -45,16 +46,16 @@ const Trending = observer(() => {
 
   const renderArtists = () => {
     return spotifyStore.popularArtists.slice(0, 20).map(artist => {
-      const artwork = artist.images?.[0]?.url || '/placeholder.png';
+    const artwork = artist.images?.[0]?.url || fallbackImage;
       return (
         <div key={artist.id} className="media-card">
-          <div className="media-thumb artist">
-            <img src={artwork} alt={artist.name} />
-          </div>
-          <div className="media-meta">
-            <h3>{artist.name}</h3>
-            <p>Artist</p>
-          </div>
+            <div className="media-thumb artist">
+                <img src={artwork} alt={artist.name} />
+            </div>
+            <div className="media-meta">
+                <h3>{artist.name}</h3>
+                <p>Artist</p>
+            </div>
         </div>
       );
     });
@@ -62,17 +63,17 @@ const Trending = observer(() => {
 
   const renderAlbums = () => {
     return spotifyStore.popularAlbums.slice(0, 20).map(album => {
-      const artwork = album.images?.[0]?.url || '/placeholder.png';
-      const artists = album.artists?.map(artist => artist.name).join(', ');
-      return (
+    const artwork = album.images?.[0]?.url || fallbackImage;
+    const artists = album.artists?.map(artist => artist.name).join(', ');
+    return (
         <div key={album.id} className="media-card">
-          <div className="media-thumb">
-            <img src={artwork} alt={album.name} />
-          </div>
-          <div className="media-meta">
-            <h3>{album.name}</h3>
-            <p>{artists}</p>
-          </div>
+            <div className="media-thumb">
+                <img src={artwork} alt={album.name} />
+            </div>
+            <div className="media-meta">
+                <h3>{album.name}</h3>
+                <p>{artists}</p>
+            </div>
         </div>
       );
     });

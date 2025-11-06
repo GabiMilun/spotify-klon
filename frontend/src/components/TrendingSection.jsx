@@ -3,14 +3,13 @@ import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import spotifyStore from '../stores/spotifyStore';
-
-const placeholder = '/placeholder.png';
+import fallbackImage from '../assets/pas.jpeg';
 
 const SECTION_CONFIG = {
   'trending-songs': {
     title: 'Trending Songs',
     selector: store => store.trendingSongs,
-    getImage: item => item.album?.images?.[0]?.url || placeholder,
+    getImage: item => item.album?.images?.[0]?.url || fallbackImage,
     getTitle: item => item.name,
     getSubtitle: item => item.artists?.map(artist => artist.name).join(', ') || 'Unknown artist',
     thumbShape: 'square'
@@ -18,7 +17,7 @@ const SECTION_CONFIG = {
   'popular-artists': {
     title: 'Popular Artists',
     selector: store => store.popularArtists,
-    getImage: item => item.images?.[0]?.url || placeholder,
+    getImage: item => item.images?.[0]?.url || fallbackImage,
     getTitle: item => item.name,
     getSubtitle: () => 'Artist',
     thumbShape: 'circle'
@@ -26,7 +25,7 @@ const SECTION_CONFIG = {
   'popular-albums': {
     title: 'Popular Albums & Singles',
     selector: store => store.popularAlbums,
-    getImage: item => item.images?.[0]?.url || placeholder,
+    getImage: item => item.images?.[0]?.url || fallbackImage,
     getTitle: item => item.name,
     getSubtitle: item => item.artists?.map(artist => artist.name).join(', ') || 'Various artists',
     thumbShape: 'square'

@@ -1,0 +1,71 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: spotify-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: spotify_clone
+      MYSQL_USER: gabo
+      MYSQL_PASSWORD: milkakeks
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spotify-app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    working_dir: /workspace/backend
+    environment:
+      PORT: 6970
+      DB_HOST: mysql
+      DB_USER: gabo
+      DB_PASSWORD: milkakeks
+      DB_NAME: spotify_clone
+      DB_PORT: 3306
+      VITE_API_URL: http://localhost:6970
+    ports:
+      - "6970:6970"
+      - "5175:5175"
+    volumes:
+      - ..:/workspace
+      - backend_node_modules:/workspace/backend/node_modules
+      - frontend_node_modules:/workspace/frontend/node_modules
+    command: sh -c "npm install && npm --prefix ../frontend install && npm run dev:all"
+
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    container_name: spotify-phpmyadmin
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: gabo
+      PMA_PASSWORD: milkakeks
+      UPLOAD_LIMIT: 64M
+    ports:
+      - "8080:80"
+
+volumes:
+  mysql_data:
+    driver: local
+  backend_node_modules:
+    driver: local
+  frontend_node_modules:
+    driver: local

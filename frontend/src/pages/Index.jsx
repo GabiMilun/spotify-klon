@@ -1,11 +1,15 @@
 import './Index.scss'
 import { observer } from 'mobx-react-lite'
+import { useParams } from 'react-router-dom'
 import { House, SpotifyLogo, User, Plus } from '@phosphor-icons/react'
 import uiStore from '../stores/uiStore'
 import SearchBar from '../components/SearchBar'
 import Trending from '../components/Trending'
+import SearchResults from '../components/SearchResults'
 
 const Index = observer(() => {
+  const { query } = useParams();
+
   return (
     <div className='index-wrapper'>
       <div className="index-navbar">
@@ -51,7 +55,7 @@ const Index = observer(() => {
 
             </div>
             <div className="index-middle-bar">
-
+                {query ? <SearchResults query={query} /> : <Trending />}
             </div>
             <div className="index-right-sidebar">
 

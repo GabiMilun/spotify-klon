@@ -73,6 +73,22 @@ class SpotifyAPI {
     const result = await this.makeRequest(`/search?q=track&type=track&limit=${limit}`);
     return { tracks: { items: result.tracks?.items || [] } };
   }
+
+  async searchArtists(query, limit = 10) {
+    if (!query) return { artists: { items: [] } };
+    const result = await this.makeRequest(`/search?q=${encodeURIComponent(query)}*&type=artist&limit=${limit}`);
+    return { artists: { items: result.artists?.items || [] } };
+  }
+
+  async getArtistTopTracks(artistId) {
+    const result = await this.makeRequest(`/artists/${artistId}/top-tracks?market=US`);
+    return { tracks: result.tracks || [] };
+  }
+
+  async getArtistAlbums(artistId, limit = 10) {
+    const result = await this.makeRequest(`/artists/${artistId}/albums?limit=${limit}&include_groups=album,single`);
+    return { albums: { items: result.items || [] } };
+  }
 }
 
 export default new SpotifyAPI();

@@ -2,9 +2,14 @@ import { makeAutoObservable } from 'mobx'
 
 class UIStore {
   libraryCreateOpen = false
+  searchQuery = ''
 
   constructor() {
     makeAutoObservable(this)
+  }
+
+  setSearchQuery(query) {
+    this.searchQuery = query
   }
 
   toggleLibraryCreate() {

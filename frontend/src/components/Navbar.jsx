@@ -1,6 +1,7 @@
 import './Navbar.scss'
 import { MagnifyingGlass, House, SpotifyLogo, DownloadSimple  } from '@phosphor-icons/react'
 import { Link } from 'react-router-dom'
+import SearchBar from './SearchBar'
 
 function Navbar() {
   return (
@@ -16,8 +17,7 @@ function Navbar() {
                     <House size={24} weight='fill' color='white'/>
                 </div>
                 <div className="search-container">
-                    {/* <MagnifyingGlass size={34} /> */}
-                    <input type="text" placeholder="Search.."></input>
+                    <SearchBar placeholder="Search.." />
                 </div>
             </div>
             

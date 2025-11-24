@@ -9,11 +9,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-      <Route path="/" element={<Index />} />
-        <Route path="/library" element={<LibraryLayout />}>
+        <Route path="/" element={<LibraryLayout />}>
           <Route index element={<Trending />} />
           <Route path="section/:sectionId" element={<TrendingSection />} />
         </Route>
+        <Route path="/index" element={<Index />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>

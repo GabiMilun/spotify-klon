@@ -2,6 +2,8 @@ import './Index.scss'
 import { observer } from 'mobx-react-lite'
 import { House, SpotifyLogo, User, Plus } from '@phosphor-icons/react'
 import uiStore from '../stores/uiStore'
+import SearchBar from '../components/SearchBar'
+import Trending from '../components/Trending'
 
 const Index = observer(() => {
   return (
@@ -13,7 +15,7 @@ const Index = observer(() => {
             <div className="navbar-center">
                 <div className='center-ikonica'><House size={34} weight='fill' color='white'/></div>
 
-                <input type="text" placeholder="Search.."></input>
+                <SearchBar placeholder="Search.." />
             </div>
             <div className="navbar-right">
                 <User size={34} color="#ffffff" weight="thin" />

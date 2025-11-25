@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Index from './pages/Index.jsx';
+import Landing from './pages/Landing.jsx';
 import LibraryLayout from './Home.jsx';
 import Trending from './components/Trending.jsx';
 import TrendingSection from './components/TrendingSection.jsx';
@@ -15,7 +15,8 @@ function App() {
           <Route path="section/:sectionId" element={<TrendingSection />} />
           <Route path="search/:query" element={<SearchResults />} />
         </Route>
-        <Route path="/index" element={<Index />} />
+        <Route path="/index" element={<Landing />} />
+        <Route path="/index/search/:query" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>

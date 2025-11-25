@@ -11,7 +11,7 @@ const Register = observer(() => {
     event.preventDefault()
     try {
       await authStore.register()
-      navigate('/')
+      navigate('/index')
     } catch {
     //   error se vec vata
     }

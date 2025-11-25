@@ -22,7 +22,7 @@ const SearchResults = observer(() => {
 		return <div className="search-results-error">{spotifyStore.error}</div>;
 	}
 
-	const { searchResults, topResultTrack, artistTopTracks, artistAlbums } = spotifyStore;
+	const { searchResults, topResultTrack, trackSearchResults, artistAlbums } = spotifyStore;
 
 	if (!searchResults || searchResults.length === 0) {
 		return <div className="search-results-empty">No results found for "{query}"</div>;
@@ -64,7 +64,7 @@ const SearchResults = observer(() => {
 				<div className="songs-container">
 					<h2>Songs</h2>
 					<div className="songs-list">
-						{artistTopTracks.map((track) => (
+						{trackSearchResults.map((track) => (
 							<div key={track.id} className="song-row">
 								<div className="song-image">
 									<img src={track.album.images[2]?.url || track.album.images[0]?.url} alt={track.name} />

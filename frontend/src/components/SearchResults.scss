@@ -20,7 +20,7 @@
 			flex: 0 0 400px;
 
 			.top-result-card{
-				background-color: #181818;
+				background-color: #1d1d1d;
 				padding: 20px;
 				border-radius: 8px;
 				transition: background-color 0.3s ease;
@@ -32,7 +32,7 @@
 				height: 240px;
 
 				&:hover{
-					background-color: #282828;
+					background-color: #2e2e2e;
 					
 					.play-button {
 						opacity: 1;

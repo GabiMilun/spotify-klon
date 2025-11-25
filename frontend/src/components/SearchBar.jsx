@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 import uiStore from '../stores/uiStore'
 
-const SearchBar = observer(({ placeholder = 'What do you want to play?' }) => {
+const SearchBar = observer(({ placeholder = 'What do you want to play?', basePath = '/search' }) => {
   const inputRef = useRef(null)
   const navigate = useNavigate()
   const { query } = useParams()
@@ -30,15 +30,17 @@ const SearchBar = observer(({ placeholder = 'What do you want to play?' }) => {
     const timeoutId = setTimeout(() => {
       if (searchQuery.trim()) {
         if (searchQuery !== query) {
-          navigate(`/search/${encodeURIComponent(searchQuery)}`)
+          const path = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath
+          navigate(`${path}/${encodeURIComponent(searchQuery)}`)
         }
       } else if (searchQuery === '' && query) {
-        navigate('/')
+        const parentPath = basePath.replace('/search', '') || '/'
+        navigate(parentPath)
       }
     }, 300)
 
     return () => clearTimeout(timeoutId)
-  }, [searchQuery, navigate, query])
+  }, [searchQuery, navigate, query, basePath])
 
   return (
     <div className="search-bar-container">

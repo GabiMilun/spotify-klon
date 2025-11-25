@@ -37,3 +37,6 @@ yarn-error.log*
 # Misc
 coverage/
 coverage-instrumented/
+
+# Editor Config
+.editorconfig

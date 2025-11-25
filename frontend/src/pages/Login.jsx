@@ -11,7 +11,7 @@ const Login = observer(() => {
     event.preventDefault()
     try {
       await authStore.login()
-      navigate('/')
+      navigate('/index')
     } catch {
       //   error se vec vata
     }

@@ -1,0 +1,321 @@
+$background : #000;
+.index-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: center;
+    min-height: 100vh;
+    background: $background;
+    color: #ffffff;
+    gap: 8px;
+
+    .index-navbar{
+        // background-color: red;
+        min-height: 70px;
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        .navbar-left{
+            margin-left: 22px;
+        }
+
+        .navbar-center{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            max-width: 500px;
+            gap: 1rem;
+
+            .center-ikonica{
+                background-color: #1f1f1f;
+                padding: 0.5rem 0.7rem;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: transform 0.2s;
+                
+                &:hover {
+                    transform: scale(1.05);
+                    background-color: #2a2a2a;
+                }
+            }
+            
+            // SearchBar container override if needed
+            .search-bar-container {
+                flex: 1;
+            }
+        }
+
+        .navbar-right{
+            margin-right: 12px;
+            background-color: #717171;
+            border-radius: 2rem;
+            padding: 0.5rem;
+        }
+    }
+
+    .index-main-content{
+        // background-color: blue;
+        min-height: 80vh;
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+
+        .index-left-sidebar{
+            flex-basis: 20%;
+            min-height: 80vh;
+            width: 100%;
+            background-color: #121212;
+            border-radius: 0.6rem;
+            margin-left: 8px;
+            position: relative;
+            padding: 1.5rem;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+
+            .index-left-sidebar__header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 0.5rem;
+                margin-bottom: 0.5rem;
+
+                .sidebar-title {
+                    font-weight: bold;
+                    color: #b3b3b3;
+                    font-size: 1rem;
+                    margin: 0;
+                    cursor: pointer;
+                    transition: color 0.2s;
+                    &:hover {
+                        color: white;
+                    }
+                }
+
+                .sidebar-create {
+                    background: transparent;
+                    border: none;
+                    color: #b3b3b3;
+                    cursor: pointer;
+                    padding: 0.5rem;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: background-color 0.2s, color 0.2s;
+
+                    &:hover {
+                        background-color: #2a2a2a;
+                        color: white;
+                    }
+                    
+                    .sidebar-create__text {
+                        display: none;
+                    }
+                }
+            }
+                
+                .sidebar-playlists {
+                    flex: 1;
+                    overflow-y: auto;
+                    padding: 0 1rem 1rem 1rem;
+                    margin-top: 1rem;
+                    
+                    &::-webkit-scrollbar {
+                        width: 8px;
+                    }
+                    &::-webkit-scrollbar-track {
+                        background: transparent;
+                    }
+                    &::-webkit-scrollbar-thumb {
+                        background-color: rgba(255, 255, 255, 0.3);
+                        border-radius: 4px;
+                    }
+
+                    .empty-state {
+                        background-color: #242424;
+                        padding: 1.5rem;
+                        border-radius: 8px;
+                        margin-top: 1rem;
+                        
+                        p {
+                            font-weight: bold;
+                            margin-bottom: 0.5rem;
+                        }
+                        .sub-text {
+                            font-weight: normal;
+                            font-size: 0.9rem;
+                            margin-bottom: 1rem;
+                        }
+                        button {
+                            background-color: white;
+                            color: black;
+                            border: none;
+                            padding: 6px 16px;
+                            border-radius: 9999px;
+                            font-weight: 700;
+                            font-size: 0.875rem;
+                            cursor: pointer;
+                            
+                            &:hover {
+                                transform: scale(1.04);
+                                background-color: #f2f2f2;
+                            }
+                            
+                            &:active {
+                                transform: scale(1.0);
+                                background-color: #e6e6e6;
+                            }
+                        }
+                    }
+
+                    .playlist-list {
+                        list-style: none;
+                        padding: 0;
+                        margin: 0;
+
+                        .playlist-item {
+                            display: flex;
+                            align-items: center;
+                            padding: 0.5rem;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            transition: background-color 0.2s;
+
+                            &:hover {
+                                background-color: #1a1a1a;
+                            }
+
+                            .playlist-icon {
+                                width: 48px;
+                                height: 48px;
+                                background-color: #282828;
+                                border-radius: 4px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                margin-right: 12px;
+                                color: #b3b3b3;
+                            }
+
+                            .playlist-info {
+                                display: flex;
+                                flex-direction: column;
+                                overflow: hidden;
+
+                                .playlist-name {
+                                    font-size: 1rem;
+                                    color: white;
+                                    margin-bottom: 4px;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                }
+
+                                .playlist-desc {
+                                    font-size: 0.85rem;
+                                    color: #b3b3b3;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .index-middle-bar {
+                flex-basis: 60%;
+                min-height: 80vh;
+                width: 100%;
+                background-color: #171717;
+                border-radius: 0.6rem;
+                overflow-y: auto;
+                
+                .my-playlists-grid {
+                    padding: 1.5rem;
+
+                    h2 {
+                        margin-bottom: 1.5rem;
+                        font-size: 1.5rem;
+                    }
+
+                    .grid-container {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                        gap: 1.5rem;
+
+                        .grid-item {
+                            background-color: #181818;
+                            padding: 1rem;
+                            border-radius: 8px;
+                            transition: background-color 0.3s;
+                            cursor: pointer;
+                            display: flex;
+                            flex-direction: column;
+
+                            &:hover {
+                                background-color: #282828;
+                            }
+
+                            .grid-image {
+                                width: 100%;
+                                aspect-ratio: 1;
+                                background-color: #333;
+                                border-radius: 4px;
+                                margin-bottom: 1rem;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+                                color: #b3b3b3;
+                            }
+
+                            .grid-title {
+                                font-weight: bold;
+                                margin-bottom: 0.5rem;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+
+                            .grid-desc {
+                                font-size: 0.9rem;
+                                color: #b3b3b3;
+                                display: -webkit-box;
+                                -webkit-line-clamp: 2;
+                                line-clamp: 2;
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                            }
+                        }
+                    }
+                }
+            }
+
+        .index-right-sidebar{
+            flex-basis: 20%;
+            min-height: 80vh;
+            width: 100%;
+            background-color: #121212;
+            // border-radius: 0.6rem;
+            margin-right: 8px;
+        }
+    }
+
+    .index-footer{
+        background-color: $background;
+        min-height: 90px;
+        width: 100%;
+        // position: fixed;
+    }
+}
+
+

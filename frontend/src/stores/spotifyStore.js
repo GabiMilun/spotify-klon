@@ -7,7 +7,7 @@ class SpotifyStore {
   popularAlbums = [];
   searchResults = [];
   topResultTrack = null;
-  artistTopTracks = [];
+  trackSearchResults = [];
   artistAlbums = [];
   loading = false;
   error = null;
@@ -19,7 +19,7 @@ class SpotifyStore {
       popularAlbums: observable,
       searchResults: observable,
       topResultTrack: observable,
-      artistTopTracks: observable,
+      trackSearchResults: observable,
       artistAlbums: observable,
       loading: observable,
       error: observable,
@@ -66,41 +66,40 @@ class SpotifyStore {
 
   async search(query) {
     try {
-        this.setLoading(true);
-        this.setError(null);
+    	this.setLoading(true);
+      	this.setError(null);
       
-        this.topResultTrack = null;
-        this.artistTopTracks = [];
-        this.artistAlbums = [];
-        this.searchResults = [];
+      	this.topResultTrack = null;
+      	this.trackSearchResults = [];
+      	this.artistAlbums = [];
+      	this.searchResults = [];
 
-        const data = await spotifyAPI.searchArtists(query, 10);
-        this.searchResults = data.artists?.items || [];
+      	const [artistsData, tracksData] = await Promise.all([
+        	spotifyAPI.searchArtists(query, 4),
+        	spotifyAPI.searchTracks(query, 5)
+      	]);
 
-        if (this.searchResults.length > 0) {
-          const bestArtist = this.searchResults[0];
-        
-          const [tracksData, albumsData] = await Promise.all([
-            spotifyAPI.getArtistTopTracks(bestArtist.id),
-            spotifyAPI.getArtistAlbums(bestArtist.id, 6)
-          ]);
+      	this.searchResults = artistsData.artists?.items || [];
+      	const tracks = tracksData.tracks?.items || [];
+      
+      	if (tracks.length > 0) {
+        	this.topResultTrack = tracks[0];
+        	this.trackSearchResults = tracks.slice(1, 5);
+      	}
 
-          const tracks = tracksData.tracks || [];
-          if (tracks.length > 0) {
-            this.topResultTrack = tracks[0];
-            this.artistTopTracks = tracks.slice(0, 4);
-          }
-        
-          this.artistAlbums = albumsData.albums?.items || [];
-        }
+      	if (this.searchResults.length > 0) {
+        	const bestArtist = this.searchResults[0];
+        	const albumsData = await spotifyAPI.getArtistAlbums(bestArtist.id, 4);
+        	this.artistAlbums = albumsData.albums?.items || [];
+      	}
 
-      } catch (err) {
-        console.error("Search error:", err);
-        this.setError("Failed to search artists");
-      } finally {
-        this.setLoading(false);
-      }
-    } 
+    	} catch (err) {
+      		console.error("Search error:", err);
+      		this.setError("Failed to search artists");
+    	} finally {
+      		this.setLoading(false);
+    	}
+  	} 
 }
 
 export default new SpotifyStore();

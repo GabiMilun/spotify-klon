@@ -80,6 +80,12 @@ class SpotifyAPI {
     return { artists: { items: result.artists?.items || [] } };
   }
 
+  	async searchTracks(query, limit = 10) {
+    	if (!query) return { tracks: { items: [] } };
+    	const result = await this.makeRequest(`/search?q=${encodeURIComponent(query)}*&type=track&limit=${limit}`);
+    	return { tracks: { items: result.tracks?.items || [] } };
+  	}
+
   async getArtistTopTracks(artistId) {
     const result = await this.makeRequest(`/artists/${artistId}/top-tracks?market=US`);
     return { tracks: result.tracks || [] };
